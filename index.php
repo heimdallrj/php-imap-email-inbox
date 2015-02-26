@@ -1,6 +1,6 @@
 <?
 /**
- * PHP IMAP
+ * PHP-IMAP
  * Retrieve Your Emails from any mail server Using PHP and IMAP
  *
  * @package php-imap-email-inbox
@@ -226,26 +226,6 @@ function decodeIMAPText( $str )
 										}
 									}
 									
-									// Iterate through each attachment and save it 
-									foreach($attachments as $attachment)
-									{
-										if($attachment['is_attachment'] == 1)
-										{
-											$filename = $attachment['name'];
-											if(empty($filename)) $filename = $attachment['filename'];
-							 
-											if(empty($filename)) $filename = time() . ".dat";
-							 
-											/* prefix the email number to the filename in case two emails
-											 * have the attachment with the same file name.
-											 */
-											$fp = fopen($email . "-" . $filename, "w+");
-											fwrite($fp, $attachment['attachment']);
-											fclose($fp);
-										}
-							 
-									}
-									
 									?>
 									
                                     <div class="email-item clearfix <?=$overview[0]->seen?'read':'unread'?>">
@@ -261,6 +241,34 @@ function decodeIMAPText( $str )
                                         <div class="message">
                                         	<?=$message?>
                                         </div> <!--/message-->
+                                        
+                                        <div class="attachments">
+                                        
+											<?php
+												// Iterate through each attachment and save it 
+												foreach($attachments as $attachment)
+												{
+													if($attachment['is_attachment'] == 1)
+													{
+														$filename = $attachment['name'];
+														if(empty($filename)) $filename = $attachment['filename'];
+										 
+														if(empty($filename)) $filename = time() . ".dat";
+										 
+														/* prefix the email number to the filename in case two emails
+														 * have the attachment with the same file name.
+														 */
+														$fp = fopen($email . "-" . $filename, "w+");
+														fwrite($fp, $attachment['attachment']);
+														fclose($fp);
+														
+														print '<p><a href="'.$email . "-" . $filename.'">'.$filename.'</a></p>';
+													}
+										 
+												}
+											?>
+                                        
+                                        </div> <!--/attachment-->
                                         
                                     </div>
                                     
