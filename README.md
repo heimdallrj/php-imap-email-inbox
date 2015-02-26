@@ -1,5 +1,5 @@
 # PHP-IMAP
-# Retrieve Your Emails from any mail server Using PHP and IMAP
+# Retrieve Your Emails from any mail Server Using PHP and IMAP
 
 @credits http://php.net/manual/en/function.imap-open.php/ <br/>
 @credits http://davidwalsh.name/gmail-php-imap/ <br/>
